@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-image: url(todolist2.webp); 
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  margin: 200px auto;
+  max-width: 500px;
+  background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent white background to make the content more readable */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow to the container */
+}
+
+#taskInput {
+  width: 100%;
+  padding: 10px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+#taskList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.taskItem {
+  margin-bottom: 5px;
+}
+
+.taskItem input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>To-Do List</h2>
+  <input type="text" id="taskInput" placeholder="Add new task...">
+  <ul id="taskList"></ul>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const taskInput = document.getElementById("taskInput");
+  const taskList = document.getElementById("taskList");
+
+  taskInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter" && taskInput.value.trim() !== "") {
+      addTask(taskInput.value.trim());
+      taskInput.value = "";
+    }
+  });
+
+  function addTask(taskText) {
+    const li = document.createElement("li");
+    li.classList.add("taskItem");
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.addEventListener("change", function() {
+      li.classList.toggle("completed");
+    });
+
+    const taskLabel = document.createElement("label");
+    taskLabel.textContent = taskText;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.classList.add("deleteButton");
+    deleteButton.addEventListener("click", function() {
+      li.remove();
+    });
+
+    li.appendChild(checkbox);
+    li.appendChild(taskLabel);
+    li.appendChild(deleteButton);
+
+    taskList.appendChild(li);
+  }
+});
+</script>
+
+</body>
+</html>
